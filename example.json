@@ -1,0 +1,29 @@
+curl -X GET "localhost:9200/dlxs_sdlhomes/_search?pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match": {
+      "text": {
+        "query": "house"
+      }
+    }
+  },
+  "fields": [
+    "idno",
+    "m_id",
+    "m_iid"
+  ],
+  "_source": false,
+  "aggregations": {
+    "sdlhomes_ownership": {
+      "terms": {
+        "field": "sdlhomes_ownership.keyword",
+      }
+    }
+  },
+  "sort": [
+    {
+      "sdlhomes_historic_name.keyword": "desc"
+    }
+  ]
+}
+'
